@@ -1,43 +1,41 @@
 import profileApi from  '@/shared/api/profile/Index';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
-const useProfile = () => {
-    const [userData, setUserData] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
 
+
+
+const useProfile = ({ dispatch, userData }) => {
     const UpdateData = async ()=>{
         try{
             const data = await profileApi.getOne()
-            console.log(data)
             if(!data ){
                 throw new Error('problem with data')
             }
-            setUserData(data)
-            setIsLoading(false)
+            dispatch({type: "SET_ALL", userData: data})
         }
         catch(err){
             console.error(err)
-            setIsLoading(false)
         }
-    }
+}
+    useEffect( () => {
+        UpdateData()
+    },[])
 
     const fileInputRef = useRef(null)
-
     const handleDragOver = (event)=>{
         event.preventDefault()
     }
-
     const handleDrop = async (event)=>{
         event.preventDefault()
         try{
-            setIsLoading(true)
             if(!event.dataTransfer.files || event.dataTransfer.files.length === 0){
             console.error("Файл не выбран");
             return;
             }
             fileInputRef.current.files = event.dataTransfer.files
-            await profileApi.UploadAvatar(fileInputRef.current)
-            await UpdateData()
+            const data = await profileApi.UploadAvatar(fileInputRef.current)
+            dispatch({type: 'UPDATE_AVATAR', payLoad: data.avatar_path})
+            UpdateData()
         }
         catch(Err){
             console.log(Err)
@@ -46,8 +44,8 @@ const useProfile = () => {
 
     const profileRedirect = useNavigate()
     const QuitAccount = async ()=> {
+        dispatch({type: "QUIT"})
         await profileApi.QuitAccount()
-        setUserData(null)
         profileRedirect('/Auth', {replace: true})
     }
     const UpdateName = async (event) =>{
@@ -58,9 +56,9 @@ const useProfile = () => {
                     if(!dataObject.NewName){
                         throw new Error('Fill all blank')
                     }
-                    const data = await profileApi.UpdateName(dataObject);
                     console.log(dataObject)
-                    await UpdateData()
+                    dispatch({type: "UPDATE_NAME", payLoad:  dataObject.NewName})
+                    const data = await profileApi.UpdateName(dataObject);
                    
                 }
                 catch(err){
@@ -70,18 +68,15 @@ const useProfile = () => {
     
     const RemoveCharacter = async (charId) => {
         try{
+            dispatch({type: "DELETE_FAVCHAR", id: charId})
             await profileApi.deleteCharacterFromDB(charId)
-            await UpdateData()
         }
         catch(err){
             console.log(err)
         }
     }
-    useEffect( () => {
-        UpdateData()
-    },[isLoading])
 
-    return {userData, isLoading, fileInputRef, handleDragOver, handleDrop, QuitAccount, UpdateName ,RemoveCharacter}
+    return { fileInputRef, handleDragOver, handleDrop, QuitAccount, UpdateName ,RemoveCharacter}
 }
 
 export default useProfile

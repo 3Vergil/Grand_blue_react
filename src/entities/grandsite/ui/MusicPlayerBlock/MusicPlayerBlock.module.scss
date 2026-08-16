@@ -1,0 +1,23 @@
+@use '@/app/styles/helpers/mixins.scss' as func;
+
+.MusicPlayerBox{
+    @include func.flex-center($direction: none);
+    top: 50%;
+    .MusicPlayerButton{
+        @include func.flex-center($direction: none, $gap: 2rem);
+        @include func.glass-border();
+        background: var(--background);
+        width: 20rem;
+        height: 20rem;
+        background-size: 100%;
+        img{
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        &:hover img{
+            opacity: 1;
+            transition: all 0.5s;
+        }
+    }
+}

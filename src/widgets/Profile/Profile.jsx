@@ -25,7 +25,7 @@ export default () =>{
             <div className= {`${styles.FavoriteCharacters} posrel`}>
                  <h1 className="posab">Favorite Characters</h1>
                  <div className={styles.FavCharContainer}>
-                {userData?.favorite_characters.map((characterId )=> {
+                {userData?.favorite_characters?.map((characterId )=> {
                     return <FavoriteCharacterBlock key = {characterId} characterId = {characterId -1}/>
                 })}
                 </div>

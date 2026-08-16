@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {useAnimation} from 'motion/react'
 import { useNavigate } from 'react-router';
 import authApi from "@/shared/api/auth/Index";
-const useAuth = ()=>{
+import profileApi from  '@/shared/api/profile/Index';
+
+const useAuth = ({dispatch , userData})=>{
     const [authSwitcher, setAuthSwitcher] = useState(false)
     const control = useAnimation();
     const LogInControl = useAnimation()
@@ -24,6 +26,7 @@ const useAuth = ()=>{
             try{
                 const formData = new FormData(event.target)
                 const dataObject = Object.fromEntries(formData)
+                console.log(dataObject)
                 if(!dataObject.name || !dataObject.password){
                     throw new Error('Fill all blank')
                 }
@@ -37,8 +40,9 @@ const useAuth = ()=>{
                 if(!data){
                     throw new Error("problem with data")
                 }
-    
                 profileRedirect('/profile', {replace: true})
+                 const Profiledata = await profileApi.getOne()
+                dispatch({type: "SET_ALL", userData: Profiledata})
     
             }
             catch(err){

@@ -1,4 +1,4 @@
-const URL = "http://127.0.0.1:2014/api/wiki"
+const URL = "http://127.0.0.1:2014/wiki"
 const header = {
     'Content-Type': 'application/json'
 }

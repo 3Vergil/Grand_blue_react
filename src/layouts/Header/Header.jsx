@@ -8,10 +8,10 @@ export default (props) => {
   const {userData} = useContext(MangaContext)
  const navItems = [
         {href: '/', label: 'HOME'},
-        {href: '/music', label: 'MUSIC'},
         {href: '/wiki', label: 'WIKI'},
         {href: '/manga', label: 'MANGA'},
-        {href: userData  ? "/profile" : '/Auth', label: userData  ? 'Profile':'Sign_In'},
+        {href: userData ? "/profile" : '/Auth', 
+          label:  userData ? 'Profile':'Sign_In'},
         
     ]
 

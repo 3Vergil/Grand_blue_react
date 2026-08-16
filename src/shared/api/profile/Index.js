@@ -1,8 +1,8 @@
 import { transformValueTypes } from "motion/react"
 
-const URL = "http://127.0.0.1:2014/api/profile"
+const URL = "http://127.0.0.1:2014/profile"
 const header = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
 }
 const profileApi = {
     deleteCharacterFromDB: async (id) => {
@@ -15,14 +15,17 @@ const profileApi = {
         if(!responce.ok){
             return new Error("Error with data")
         }
+        return responce.json()
     },
     getOne: async ()=> {
         try{
-            const responce = await fetch(`${URL}/getOne`, {credentials: "include"})
-        if(!responce.ok){
-            throw new Error("Error with data")
-        }
-        return responce.json()
+            const responce = await fetch(`${URL}/getOne`, {
+                headers: header,
+                 credentials: "include"})
+            if(!responce.ok){
+                throw new Error("Error with data")
+            }
+            return responce.json()
         }
         catch(err){
             console.log(err)
@@ -33,9 +36,10 @@ const profileApi = {
         try{
             const file = new FormData()
             file.append('avatar', Avatar.files[0])
+            const {'Content-Type': _, ...uploadHeaders} = header
             const response = await fetch(`${URL}/avatar`, {
             method: "POST",
-            headers: header,
+            headers: uploadHeaders,
             body: file,
             credentials: 'include',
             })

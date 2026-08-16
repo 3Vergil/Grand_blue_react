@@ -16,7 +16,7 @@ export default ()=> {
     return(
         <AnimatePresence mode="wait" >
         <Routes location={location} key={location.pathname}>       
-            <Route path="/" element = {<PageTransition><Home /></PageTransition>}/>
+            <Route path="/" element = {<PageTransition><Music /></PageTransition>}/>
             <Route path="/music" element = {<PageTransition><Music /></PageTransition>}/>
             <Route path="/wiki" element = {<PageTransition><Wiki /></PageTransition>}/>
             <Route path="/manga" element = {<PageTransition><Manga /></PageTransition>} />

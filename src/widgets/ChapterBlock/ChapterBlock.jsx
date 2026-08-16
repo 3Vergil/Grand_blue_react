@@ -1,79 +1,23 @@
-import { memo, useContext, useEffect, useRef} from "react"
-import { data, Link, useParams } from "react-router"
-import { MangaContext } from "@/entities/grandsite"
-import * as pdfjsLib from "pdfjs-dist";
-import { useState } from "react"
-import chapterApi from "@/shared/api/chapter"
-import styles from './ChapterBlock.module.scss'
+import { memo, useContext} from "react"
+import {  Link, useParams } from "react-router"
+import useChapter from "../../entities/grandsite/module/useChapter"
+import useReading from "../../entities/grandsite/module/useReading"
 import PdfLoader from "../../features/pdf-loader";
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.mjs',
-  import.meta.url
-).href;
+import styles from './ChapterBlock.module.scss'
+import { MangaContext } from "../../entities/grandsite";
+import SendMessage from "../../features/send-message";
+import useMangaChat from "../../entities/grandsite/module/useMangaChat";
 const ChapterBlock = ()=> {
    let {id} = useParams()
-   const {userData} = useContext(MangaContext)
-   const [chapterPath, setChapterPath] = useState(null)
-   const [loading, setLoading] = useState(true)
-   const [pdfDoc, setPdfDoc] = useState(null);
-   const [totalPages, setTotalPages] = useState([]);
-   const [activePage, setActivePage] = useState(1);
-   useEffect(()=> {
-      if(!id || id === 'undefined') return;
-      chapterApi.getChapterById(id).then((data) =>{
-         setChapterPath(data)
-         setLoading(false)
-      }).catch((error) => {
-         console.log(error)
-         setLoading(false)
-      })
-   }, [id])
-   useEffect(() => {
-   if (!chapterPath || !chapterPath.path) return;
-
-   const RenderAllPages = async () => {
-      try {
-         const fileTargetUrl = `http://127.0.0.1:2014/${chapterPath.path}`;
-         const loader = pdfjsLib.getDocument({
-            url: fileTargetUrl,
-           withCredentials:'include'
-         });
-         const doc = await loader.promise; 
-         setPdfDoc(doc);
-
-         const pagesArray = Array.from({ length: doc.numPages }, (_, i) => i + 1);
-         setTotalPages(pagesArray);
-         setLoading(false);
-         if(id === userData?.chapterId){
-            setTimeout(() => {
-               const targetPage = document.getElementById(`mangaPage${userData?.Page}`)
-               if(targetPage){
-                
-                  targetPage.scrollIntoView({
-                     behavior: 'smooth',
-                     block: 'start'
-                  })
-               }
-            },100)
-         }
-      } catch (err) {
-         console.error( err);
-         setLoading(false);
-      }
-   };
-
-   RenderAllPages();
-}, [chapterPath]);
-
-   const PageVisibiltyChange = async (pageNum) => {
-      if(pageNum === activePage) return;
-      setActivePage(pageNum)
-      await chapterApi.CurrentReadingChapter(pageNum, id)
-   }
+   const {dispatch, userData} = useContext(MangaContext)
+   const {chapterPath, pdfDoc, totalPages, loading} = useChapter(id, {userData})
+   const {activePage, PageVisibiltyChange} = useReading(id, {dispatch, userData})
+   const {receivedMessages, sendMessage , setMessage} = useMangaChat(id)
    if(loading){
       return (<div>Loading chapter content...</div>)
    }
    return(
+      <>
         <div className={`${styles.container} posrel mt`}>
             <h1>Now you Reading chapter{id}</h1>
             {id == 1 ? '' : 
@@ -102,7 +46,16 @@ const ChapterBlock = ()=> {
             </button>  
             </Link>
                 
-         </div>)
+         </div>
+         <div>
+            <SendMessage 
+               receivedMessage={receivedMessages}
+               sendMessage={sendMessage}
+               setMessage={setMessage}
+            />
+         </div>
+            </>
+      )
 }
 
 export default memo(ChapterBlock)
