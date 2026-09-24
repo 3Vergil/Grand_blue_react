@@ -26,7 +26,6 @@ const useAuth = ({dispatch , userData})=>{
             try{
                 const formData = new FormData(event.target)
                 const dataObject = Object.fromEntries(formData)
-                console.log(dataObject)
                 if(!dataObject.name || !dataObject.password){
                     throw new Error('Fill all blank')
                 }

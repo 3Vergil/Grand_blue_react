@@ -5,7 +5,7 @@ const header = {
 
 
 const chatApi = {
-    saveMessage: async (userId, message, chapterId) => {
+    saveMessage: async ( userId,message, chapterId) => {
         try{
             const responce = await fetch(`${URL}/postMessage`, {
                 method: "POST",
@@ -35,3 +35,5 @@ const chatApi = {
         }
     }
 }
+
+export default chatApi

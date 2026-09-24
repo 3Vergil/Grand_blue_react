@@ -23,7 +23,7 @@ const profileApi = {
                 headers: header,
                  credentials: "include"})
             if(!responce.ok){
-                throw new Error("Error with data")
+                throw new Error("Unauthorized")
             }
             return responce.json()
         }

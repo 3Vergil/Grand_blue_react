@@ -6,13 +6,13 @@ import PdfLoader from "../../features/pdf-loader";
 import styles from './ChapterBlock.module.scss'
 import { MangaContext } from "../../entities/grandsite";
 import SendMessage from "../../features/send-message";
-import useMangaChat from "../../entities/grandsite/module/useMangaChat";
+
 const ChapterBlock = ()=> {
    let {id} = useParams()
    const {dispatch, userData} = useContext(MangaContext)
    const {chapterPath, pdfDoc, totalPages, loading} = useChapter(id, {userData})
    const {activePage, PageVisibiltyChange} = useReading(id, {dispatch, userData})
-   const {receivedMessages, sendMessage , setMessage} = useMangaChat(id)
+   console.log("CHAPTER RENDER");
    if(loading){
       return (<div>Loading chapter content...</div>)
    }
@@ -49,9 +49,7 @@ const ChapterBlock = ()=> {
          </div>
          <div>
             <SendMessage 
-               receivedMessage={receivedMessages}
-               sendMessage={sendMessage}
-               setMessage={setMessage}
+               chapterId = {id}
             />
          </div>
             </>

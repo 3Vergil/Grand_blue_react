@@ -58,7 +58,6 @@ const useChapter = (id, {userData})=> {
              setLoading(false);
           }
        };
-    
        RenderAllPages();
     }, [chapterPath]);
     

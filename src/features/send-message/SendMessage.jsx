@@ -1,19 +1,21 @@
 import io from 'socket.io-client'
 import {useContext, useEffect, useState} from "react"
 import { MangaContext } from '../../entities/grandsite'
+import useMangaChat from "@/entities/grandsite/module/useMangaChat";
 
 export default (props) => {
-    const {receivedMessage, sendMessage, setMessage} = props
+    const {chapterId} = props
+    const {receivedMessages, sendMessage , setMessage} = useMangaChat(chapterId)
+    const [input, setInput] = useState('')
     const {userData} = useContext(MangaContext)
-    const userName = userData?.name ?? "Anonim"
     return(
         <div>
-            <input type="text" placeholder="Type your message..." onChange= {(event) =>{
-                setMessage(`${userName}: ${event.target.value}`)
+            <input type="text" placeholder="Type your message..." value={input} onChange= {(event) =>{
+                setInput(event.target.value)
             }}/>
-            <button onClick={sendMessage}>Send</button>
-            <div>{receivedMessage.map((message, index)=>{
-                return(<h1 key={index}>{message}</h1>)
+            <button onClick={() => sendMessage(input, userData?.name, userData?.id)}>Send</button>
+            <div>{receivedMessages.map((message, index)=>{
+                return(<h1 key={index}>{message.nickname }:  {message.message}</h1>)
             })}</div>
             
         </div>
