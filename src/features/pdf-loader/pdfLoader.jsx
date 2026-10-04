@@ -1,12 +1,11 @@
 import * as pdfjsLib from "pdfjs-dist";
 import { useEffect, useRef } from "react"
 
-export default ({ pdfDoc, pageNum, onVisible })=> {
+export default ({ pdfDoc, pageNum })=> {
         let renderTask = null
         let cancelled = false
 
         const canvasRef = useRef(null)
-        const rowref = useRef(null)
         const prevPdfDoc = useRef(pdfDoc);
 
         prevPdfDoc.current = pdfDoc;
@@ -47,19 +46,9 @@ export default ({ pdfDoc, pageNum, onVisible })=> {
                 }
             }
          }, [ pdfDoc])
-          useEffect(()=>{
-            const PageObserver = new IntersectionObserver(
-                ([entry])=> {
-                    if(entry.isIntersecting){
-                        onVisible(pageNum)
-                    }
-                }, {threshold: 0.5})
-            if(rowref.current) PageObserver.observe(rowref.current);
-            return () => PageObserver.disconnect()
-        }, [pageNum, onVisible])
 
         return(
-            <>  <div ref={rowref} id={`mangaPage${pageNum}`}>
+            <>  <div data-page = {`${pageNum}`} id={`mangaPage${pageNum}`}>
                 <canvas ref= {canvasRef}></canvas>
                 </div>
             </>

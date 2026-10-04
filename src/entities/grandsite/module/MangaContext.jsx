@@ -31,8 +31,10 @@ const userDataReducer = (state, action) => {
             })}
         }
         case "ADD_FAVCHAR": {
-            return state.favorite_characters.push(action.id)
-            .sort((a, b) => a-b)
+            return {
+                ...state,
+                favorite_characters: [...state.favorite_characters, action.id].sort((a,b) => a-b)
+            }
         }
         case "CURRENT_READINGCHAR":{
             return {
@@ -61,7 +63,9 @@ export const MangaProvider = (props) => {
     LogInControl, 
     control, 
     handleClick,
-    Sumbit
+    Sumbit,
+    error,
+    fieldsError
     } = useAuth({dispatch , userData})
     
     const { fileInputRef, handleDragOver, handleDrop, QuitAccount, UpdateName,RemoveCharacter } = useProfile({dispatch , userData})
@@ -95,7 +99,9 @@ export const MangaProvider = (props) => {
             toggleAudio,
             videoAudioRef,
             Replay,
-            dispatch
+            dispatch,
+            error,
+            fieldsError
            }
         }>
             {children}

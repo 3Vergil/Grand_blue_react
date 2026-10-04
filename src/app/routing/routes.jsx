@@ -1,7 +1,6 @@
 import { MangaProvider } from "@/entities/grandsite"
 import { Route, Routes, useLocation } from "react-router"
 import Manga from '@/pages/MangaPage'
-import Home from "@/pages/HomePage"
 import Music from "@/pages/MusicPage"
 import Wiki from "@/pages/WikiPage"
 import ErrorPage from "@/pages/ErrorPage"
@@ -21,7 +20,6 @@ export default ()=> {
             <Route path="/wiki" element = {<PageTransition><Wiki /></PageTransition>}/>
             <Route path="/manga" element = {<PageTransition><Manga /></PageTransition>} />
             <Route path="/chapter/:id" element = {<PageTransition><ChapterPage/></PageTransition>}/>
-            <Route />
             <Route path="/Auth" element = {<PageTransition><AuthPage /></PageTransition>} />
             <Route path="/profile" element = {<PageTransition><ProfilePage /></PageTransition>} />
             <Route path="/*" element = {<PageTransition><ErrorPage /></PageTransition>} />

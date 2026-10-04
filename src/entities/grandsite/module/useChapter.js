@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef} from "react"
-import { data, Link, useParams } from "react-router"
+import {  useEffect, useRef} from "react"
 import { MangaContext } from "@/entities/grandsite"
 import * as pdfjsLib from "pdfjs-dist";
 import { useState } from "react"

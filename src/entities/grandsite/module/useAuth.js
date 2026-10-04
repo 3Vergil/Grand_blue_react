@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import {useAnimation} from 'motion/react'
 import { useNavigate } from 'react-router';
 import authApi from "@/shared/api/auth/Index";
@@ -6,6 +6,11 @@ import profileApi from  '@/shared/api/profile/Index';
 
 const useAuth = ({dispatch , userData})=>{
     const [authSwitcher, setAuthSwitcher] = useState(false)
+    const [error, setError] = useState('')
+    const [fieldsError, setFieldsError] = useState({
+        name: false,
+        password: false
+    })
     const control = useAnimation();
     const LogInControl = useAnimation()
     const handleClick = async () => {
@@ -27,7 +32,12 @@ const useAuth = ({dispatch , userData})=>{
                 const formData = new FormData(event.target)
                 const dataObject = Object.fromEntries(formData)
                 if(!dataObject.name || !dataObject.password){
-                    throw new Error('Fill all blank')
+                    setFieldsError({
+                        name: !fieldsError.name,
+                        password: !fieldsError.password
+                    })
+                    setError('Please fill in all fields')
+                    throw new Error('Please fill in all fields')
                 }
                 let data;
                 if(authSwitcher){
@@ -37,6 +47,7 @@ const useAuth = ({dispatch , userData})=>{
                     data = await authApi.createAccount(dataObject)
                 }
                 if(!data){
+                    setError("Server conection error")
                     throw new Error("problem with data")
                 }
                 profileRedirect('/profile', {replace: true})
@@ -45,10 +56,11 @@ const useAuth = ({dispatch , userData})=>{
     
             }
             catch(err){
+                setError(err)
                 console.error(err)
             }
         }
-    return{authSwitcher, LogInControl, control, handleClick, Sumbit}
+    return{authSwitcher, LogInControl, control, handleClick, Sumbit, error,fieldsError}
 }
 
 export default useAuth

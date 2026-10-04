@@ -22,7 +22,7 @@ const useMangaChat = (id) => {
         }
         setMessage(newMessage)
         await chatApi.saveMessage(newMessage.userId, newMessage.message, newMessage.chapterId)
-        socket.emit('send_message', message.message,  id )
+        socket.emit('send_message', newMessage.message,  id )
         setReceivedMessages(prev => [...prev, newMessage])
     }
 
@@ -39,6 +39,7 @@ const useMangaChat = (id) => {
         
         return () => {
             socket.off("receive_message", receiveMessage);
+            socket.emit('leave_room', id)
         };
     }, [id])
 

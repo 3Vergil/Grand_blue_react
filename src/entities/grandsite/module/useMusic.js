@@ -11,6 +11,7 @@ const useMusic= ()=> {
             setMusicData(data)
     }
     const toggleAudio = () => {
+        if(!videoAudioRef?.current) return
         if(isPlaying){
             videoAudioRef.current.pause()
         }

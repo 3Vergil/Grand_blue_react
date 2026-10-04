@@ -1,4 +1,4 @@
-import { memo, useContext} from "react"
+import { memo, useContext, useRef, useEffect} from "react"
 import {  Link, useParams } from "react-router"
 import useChapter from "../../entities/grandsite/module/useChapter"
 import useReading from "../../entities/grandsite/module/useReading"
@@ -9,10 +9,36 @@ import SendMessage from "../../features/send-message";
 
 const ChapterBlock = ()=> {
    let {id} = useParams()
+   const chapterRef = useRef(null)
    const {dispatch, userData} = useContext(MangaContext)
    const {chapterPath, pdfDoc, totalPages, loading} = useChapter(id, {userData})
-   const {activePage, PageVisibiltyChange} = useReading(id, {dispatch, userData})
-   console.log("CHAPTER RENDER");
+   const {activePage, debouncedPageChange} = useReading(id, {dispatch, userData})
+   
+   useEffect(()=>{
+        
+            const PageObserver = new IntersectionObserver(
+                (entries)=> {
+                  
+                  entries.forEach((entry) => {
+                     if(entry.isIntersecting){
+                        let pageNumber = entry.target.dataset.page
+                        console.log(pageNumber)
+                        debouncedPageChange(Number(pageNumber))
+                    }
+                  })
+                }, {threshold: 0.5})
+            
+            if (!chapterRef.current) {
+               
+               return}
+            const pages = chapterRef.current.querySelectorAll('[data-page]')
+   
+
+            pages.forEach((page) => {
+               PageObserver.observe(page)
+            })
+            return () => PageObserver.disconnect()
+        }, [totalPages, debouncedPageChange])
    if(loading){
       return (<div>Loading chapter content...</div>)
    }
@@ -27,14 +53,13 @@ const ChapterBlock = ()=> {
             </button>
             </Link>
             }
-            <div className= {styles.Chapter}>
+            <div className= {styles.Chapter} ref = {chapterRef} >
                {totalPages.map((pageNumber) => {
                   return(
                      <PdfLoader 
                      key={pageNumber}
                      pdfDoc = {pdfDoc}
                      pageNum = {pageNumber}
-                     onVisible = {PageVisibiltyChange}
                   />
                   )
                })}

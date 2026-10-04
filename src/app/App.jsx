@@ -5,7 +5,7 @@ import Routes from "./routing/routes.jsx"
 import './styles'
 
 const App = (props) => {
-  const { children, title, url } = props
+  const { title } = props
 
       return (
         <>

@@ -39,4 +39,21 @@
                 text-shadow: 1px 1px 3rem rgba(211, 208, 208, 0.595);
             }
         }
+    .error{
+        color: red;
+        animation: shake 0.3s;
+    }
+    @keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    75% {
+        transform: translateX(6px);
+    }
+}
 }

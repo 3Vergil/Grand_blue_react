@@ -13,6 +13,7 @@ const useWiki = () => {
     }
 
     const characterSlider =  (index) => {
+        if (!charactersData?.length) return
         setCurrentIndex((index + charactersData.length) % charactersData.length)
     }
     const addToFavoriteCharacters = async () => {
