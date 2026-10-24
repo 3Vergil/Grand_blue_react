@@ -9,7 +9,7 @@ export default (props) => {
             <form onSubmit={Sumbit}>
             <Field type = "text" id = 'name' error = {error}>name</Field>
             <Field type = "password" id = 'password' error = {error}>password</Field>
-            <button  className= {className.button} >Log In</button>
+            <button  className= {className.button} type="sumbit">Log In</button>
             </form>
         )
     

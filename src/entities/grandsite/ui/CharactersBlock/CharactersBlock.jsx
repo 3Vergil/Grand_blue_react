@@ -45,7 +45,6 @@ export default () => {
                 >
                     <h2>{charactersData[currentIndex]?.character_smalldescription}</h2>
                 </motion.div>
-                <ButtonLink className = {`${styles.buttonLink} posab`}>Full Info </ButtonLink>
                 <Button  className = {`${styles.buttonFavorite} posab`} onClick = {addToFavoriteCharacters}>Add To Favorite</Button>
                 <button className={`${styles.NavArrow} posab ${styles.right}`}  onClick={ () =>characterSlider(currentIndex +1)}>
                     &#10095;

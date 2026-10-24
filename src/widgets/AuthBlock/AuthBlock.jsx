@@ -28,7 +28,7 @@ export default () => {
             >{authSwitcher? "Sign In" :"Log In"}</motion.button>
             <h2 className= {`${styles.error}`}>{fieldsError.name ? error.message: ''}</h2>
         </motion.div>
-        <motion.div 
+        <motion.div  
         initial ={{opacity: 0,x:420,scale: 0}}
         animate = {LogInControl}
         className={`${styles.SignIn} posab`}>

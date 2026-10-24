@@ -17,7 +17,9 @@ export default (props) => {
         <div className={`${styles.CharacterBody} `}>
             <MangaImage className = {styles} src = {charactersData[characterId]?.character_img}/>
             <h2 className="posab">{charactersData[characterId]?.surname} {charactersData[characterId]?.name}</h2>
-            <button onClick={() => RemoveCharacter(characterId+1)}>Delete</button>
+            <div className= {`${styles.ButtonBody} posab`}>
+                <Button onClick={() => RemoveCharacter(characterId+1)}>Delete</Button>
+            </div>
         </div>
     )
 }
