@@ -10,7 +10,7 @@ export default () =>{
     const {
      mangaData
     } = useContext(MangaContext)
-
+    console.log(mangaData)
     if (!mangaData || !mangaData.Volumes) {
     return <h2>Загрузка данных c сервера...</h2>;
   }

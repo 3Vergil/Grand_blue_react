@@ -1,8 +1,9 @@
 @use 'variables' as var;
 @use 'helpers/mixins.scss' as func;
 body{
-    @include func.flex-center($direction: column);
-    height: 100vh;
+    @include func.flex-center($direction: column, $gap: 0);
+    min-height: 100vh;
+    height: auto;
     width: 100vw;
     margin: 0;
     padding: 0;

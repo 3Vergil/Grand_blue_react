@@ -1,0 +1,23 @@
+@use '@/app/styles/helpers/mixins.scss' as func;
+@use '@/app/styles/variables.scss' as var;
+
+.CurrentRead{
+        @include func.glass-effect(var.$header-main-color, $radius: 0.5rem, $blur: 0.2rem);
+        @include func.grid-container($column-size: 1fr 2fr, $row-size: 1fr);
+        div{
+            h1{
+                width: 300%;
+            }
+        }
+        .Body{
+            @include func.flex-center($direction: column, $display: center, $gap: 1rem);
+            .Image{
+                @include func.glass-border($size: 0.32rem, $bd-color: rgba(177, 177, 177, 0.316));
+                height: 12rem;
+                border-radius: 1rem;
+                box-shadow: -0.7rem 0.4rem 1rem rgba(33, 33, 33, 0.759);
+                margin: 1rem;
+                margin-right: 0;
+            }
+        }
+}

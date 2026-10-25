@@ -9,7 +9,7 @@ export default (props) => {
     const [input, setInput] = useState('')
     const {userData} = useContext(MangaContext)
     return(
-        <div>
+        <div style={{ display: 'flow-root' }}>
             <input type="text" placeholder="Type your message..." value={input} onChange= {(event) =>{
                 setInput(event.target.value)
             }}/>

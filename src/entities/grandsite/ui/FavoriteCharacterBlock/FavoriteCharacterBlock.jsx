@@ -1,10 +1,8 @@
 import MangaImage from "@/shared/ui/Image/MangaImage"
-
 import styles from "./FavoriteCharacterBlock.module.scss"
 import { useContext } from "react"
-import { MangaContext } from "../../module/MangaContext"
-import IconButton from "../../../../shared/ui/IconButton"
-import Button from "../../../../shared/ui/Button/Button"
+import { MangaContext } from "../../index";
+import Button from "@/shared/ui/Button/Button"
 
 export default (props) => {
     const {characterId} = props

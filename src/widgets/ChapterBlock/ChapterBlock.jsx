@@ -11,8 +11,8 @@ const ChapterBlock = ()=> {
    let {id} = useParams()
    const chapterRef = useRef(null)
    const {dispatch, userData} = useContext(MangaContext)
-   const {chapterPath, pdfDoc, totalPages, loading} = useChapter(id, {userData})
-   const {activePage, debouncedPageChange} = useReading(id, {dispatch, userData})
+   const { pdfDoc, totalPages, loading} = useChapter(id, {userData})
+   const { debouncedPageChange} = useReading(id, {dispatch, userData})
    
    useEffect(()=>{
         

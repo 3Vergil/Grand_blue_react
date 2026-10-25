@@ -1,5 +1,12 @@
 @font-face {
-    font-family: Knewavave;
+    font-family: "Knewavave";
     src: url(src/assets/fonts/Knewave-Regular.ttf);
     font-weight: 100;
+}
+
+@font-face {
+    font-family: "Bangers";
+    src: url("/src/assets/fonts/Bangers-Regular.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
 }

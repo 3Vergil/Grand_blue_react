@@ -4,5 +4,4 @@
 .Container{
     @include func.grid-container($gap: 1.5rem, $repeat:3,  $row-size: 0.5fr);
     margin-top: 5rem;   
-    top: 95rem;
 }
