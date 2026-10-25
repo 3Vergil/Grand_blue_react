@@ -27,7 +27,7 @@ const userDataReducer = (state, action) => {
             return {
                 ...state,
                 favorite_characters: state.favorite_characters.filter((char) => {
-                return char.id !== action.id
+                return char !== action.id
             })}
         }
         case "ADD_FAVCHAR": {
@@ -70,7 +70,7 @@ export const MangaProvider = (props) => {
     
     const { fileInputRef, handleDragOver, handleDrop, QuitAccount, UpdateName,RemoveCharacter } = useProfile({dispatch , userData})
 
-    const {charactersData,characterSlider, currentIndex, addToFavoriteCharacters} = useWiki()
+    const {charactersData,characterSlider, currentIndex, addToFavoriteCharacters} = useWiki({dispatch , userData})
     const {musicData, MusicSlider, currentMusicIndex, isPlaying, toggleAudio,videoAudioRef, Replay} = useMusic()
     return(
         <MangaContext.Provider

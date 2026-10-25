@@ -4,6 +4,7 @@
 .CharacterBody{
     @include func.flex-center($direction:  column);
     @include func.glass-border($size: 0.1rem);
+    flex-shrink: 0;
     width: 10rem;
     height: 10rem;
     padding: 0.2rem 0.2rem;

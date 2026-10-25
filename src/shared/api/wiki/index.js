@@ -17,6 +17,7 @@ const wikiApi = {
         if(!responce.ok){
             throw new Error('can not add new FavCharacter')
         }
+        return true
     }
 }
 

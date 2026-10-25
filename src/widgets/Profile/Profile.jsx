@@ -22,9 +22,12 @@ export default () =>{
                 </div>
             </div>
             
-            <div className= {`${styles.FavoriteCharacters} posrel`}>
-                 <h1 className="posab">Favorite Characters</h1>
-                 <div className={styles.FavCharContainer}>
+            <div className= {`${styles.FavoriteCharacters} posrel`}
+            onWheel={(e) => {
+                e.currentTarget.scrollLeft += e.deltaY
+            }}>
+                 <h1>Favorite Characters</h1>
+                 <div className={`${styles.FavCharContainer} posrel`}>
                 {userData?.favorite_characters?.map((characterId )=> {
                     return <FavoriteCharacterBlock key = {characterId} characterId = {characterId -1}/>
                 })}

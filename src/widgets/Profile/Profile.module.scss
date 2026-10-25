@@ -9,19 +9,20 @@
 
     .FavoriteCharacters{
         @include func.glass-effect(var.$header-main-color, $radius: 0.5rem, $blur: 0.2rem);
-        overflow-x: auto;
+        overflow-x: scroll;
         overflow-y: hidden;
         height: 15rem;
         h1{
             top: -5%;
             left: 50%;
+            position: fixed;
             transform: translateX(-50%);
         }
         .FavCharContainer{
             @include func.flex-center($gap: 1.5rem, $loc: flex-start);
-            width: 100%;
+            width: max-content;
+            min-width: 100%;
             height: 100%;
-            position: absolute;
             top: 2rem;
             
         }

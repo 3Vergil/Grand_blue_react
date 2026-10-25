@@ -58,7 +58,7 @@ const useProfile = ({ dispatch, userData }) => {
                     }
                     console.log(dataObject)
                     dispatch({type: "UPDATE_NAME", payLoad:  dataObject.NewName})
-                    const data = await profileApi.UpdateName(dataObject);
+                    await profileApi.UpdateName(dataObject);
                    
                 }
                 catch(err){
@@ -68,8 +68,10 @@ const useProfile = ({ dispatch, userData }) => {
     
     const RemoveCharacter = async (charId) => {
         try{
-            dispatch({type: "DELETE_FAVCHAR", id: charId})
-            await profileApi.deleteCharacterFromDB(charId)
+            const data = await profileApi.deleteCharacterFromDB(charId)
+            if(data){
+                dispatch({type: "DELETE_FAVCHAR", id: charId})
+            }
         }
         catch(err){
             console.log(err)

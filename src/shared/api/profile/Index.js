@@ -15,7 +15,7 @@ const profileApi = {
         if(!responce.ok){
             return new Error("Error with data")
         }
-        return responce.json()
+        return true
     },
     getOne: async ()=> {
         try{

@@ -4,7 +4,7 @@ import wikiApi from "@/shared/api/wiki"
 
 
 
-const useWiki = () => {
+const useWiki = ({ dispatch, userData }) => {
     const [charactersData, setCharactersData] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0);
     const GetDataCharacters = async () => {
@@ -17,7 +17,11 @@ const useWiki = () => {
         setCurrentIndex((index + charactersData.length) % charactersData.length)
     }
     const addToFavoriteCharacters = async () => {
-        await wikiApi.addFavoriteCharacter(currentIndex + 1)
+        const id = currentIndex + 1
+        const data = await wikiApi.addFavoriteCharacter(id)
+        if(data){
+            dispatch({type: 'ADD_FAVCHAR', id: id })
+        }
     }
     useEffect(()=> {    
         GetDataCharacters()
