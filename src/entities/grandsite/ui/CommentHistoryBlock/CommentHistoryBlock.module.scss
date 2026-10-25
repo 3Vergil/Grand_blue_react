@@ -1,0 +1,60 @@
+@use '@/app/styles/helpers/mixins.scss' as func;
+@use '@/app/styles/variables.scss' as var;
+
+
+
+.CommentsHistory {
+    @include func.glass-effect(var.$header-main-color, $radius: 0.5rem, $blur: 0.2rem);
+    @include func.flex-center($direction: column);
+    width: 100%;
+    height: 15rem;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+}
+
+.CommentsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  width: 100%;
+  min-width: 0;
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding-right: 8px;
+   &::-webkit-scrollbar{
+            display: none
+        }
+}
+
+.CommentItem {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.Chapter {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var.$text-color;
+  margin-bottom: 5px;
+}
+
+.Message {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  font-weight: 800;
+  color: var.$header-text-color;
+}

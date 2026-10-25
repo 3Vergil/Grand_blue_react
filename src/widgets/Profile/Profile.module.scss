@@ -30,7 +30,4 @@
             display: none
         }
     }
-    .CommentHistory{
-        @include func.glass-effect(var.$header-main-color, $radius: 0.5rem, $blur: 0.2rem);
-    }
 }

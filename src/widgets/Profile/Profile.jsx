@@ -4,6 +4,7 @@ import { ProfileBlock } from "@/entities/grandsite"
 import styles from './Profile.module.scss'
 import FavoriteCharacterBlock from "@/entities/grandsite/ui/FavoriteCharacterBlock"
 import CurrentReadBlock from "../../entities/grandsite/ui/CurrentReadBlock"
+import CommentHistoryBlock from "../../entities/grandsite/ui/CommentHistoryBlock"
 
 export default () =>{
     const {userData} = useContext(MangaContext)
@@ -23,6 +24,7 @@ export default () =>{
                 })}
                 </div>
             </div>
+            <CommentHistoryBlock />
         </article>
         </main>
     )

@@ -1,5 +1,5 @@
 import profileApi from  '@/shared/api/profile/Index';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useRef, } from 'react';
 import { useNavigate } from 'react-router';
 
 
@@ -17,10 +17,6 @@ const useProfile = ({ dispatch, userData }) => {
             console.error(err)
         }
 }
-    useEffect( () => {
-        UpdateData()
-    },[])
-
     const fileInputRef = useRef(null)
     const handleDragOver = (event)=>{
         event.preventDefault()
@@ -74,9 +70,13 @@ const useProfile = ({ dispatch, userData }) => {
             }
         }
         catch(err){
-            console.log(err)
+            console.error(err)
         }
     }
+    useEffect( () => {
+        UpdateData()
+    },[])
+
 
     return { fileInputRef, handleDragOver, handleDrop, QuitAccount, UpdateName ,RemoveCharacter}
 }

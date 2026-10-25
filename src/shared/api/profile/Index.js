@@ -1,5 +1,3 @@
-import { transformValueTypes } from "motion/react"
-
 const URL = "http://127.0.0.1:2014/profile"
 const header = {
     'Content-Type': 'application/json',
@@ -28,7 +26,7 @@ const profileApi = {
             return responce.json()
         }
         catch(err){
-            console.log(err)
+            console.error(err)
             return null
         }
     },
@@ -50,7 +48,7 @@ const profileApi = {
 
         }
         catch(err){
-            console.log(err)
+            console.error(err)
         }
     },
     QuitAccount: async () => {
@@ -62,7 +60,7 @@ const profileApi = {
             return response.json()
         }
         catch(err){
-
+            console.error(err)
         }
     },
     UpdateName: async (NewName) => {
@@ -79,10 +77,24 @@ const profileApi = {
             return responce.json()
         }
         catch(err){
-            console.log(err)
+            console.error(err)
+        }
+    },
+    getAllCommentsHistory: async () => {
+        try{
+            const responce = await fetch(`${URL}/getComments`, {
+                credentials: 'include',
+                headers: header
+            })
+            if(!responce.ok){
+                throw new Error('problem with data')
+            }
+            return responce.json()
+        }
+        catch(err){
+            console.error(err)
         }
     }
-
 }
 
 export default profileApi
