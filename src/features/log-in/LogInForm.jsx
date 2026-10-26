@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import { MangaContext } from "@/entities/grandsite"
-import Button from "@/shared/ui/Button"
 import Field from "@/shared/ui/Field"
 export default (props) => {
     const {className, error} = props
@@ -9,7 +8,7 @@ export default (props) => {
             <form onSubmit={Sumbit}>
             <Field type = "text" id = 'name' error = {error}>name</Field>
             <Field type = "password" id = 'password' error = {error}>password</Field>
-            <button  className= {className.button} type="sumbit">Log In</button>
+            <button  className= {className.button} type="sumbit" >Log In</button>
             </form>
         )
     

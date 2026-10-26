@@ -12,9 +12,12 @@
     .SignIn{
          @include func.flex-center($display: flex,$direction: column, $loc: center);
          height: 100%;
-         button{
-           position: absolute;
-         }
+         
+         
+    }
+    form button {
+        display: block;
+        margin-inline: auto;
     }
     .LogIn{
         background-color: #155c97;
@@ -24,7 +27,7 @@
     }
     }
     .button{
-            width: 30%;
+            width: 60%;
             background-color: rgb(173, 122, 4);
             border-radius: 0.8rem;
             font-family: var.$font-main;

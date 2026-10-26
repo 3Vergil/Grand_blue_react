@@ -2,7 +2,7 @@ import {motion} from 'motion/react'
 import "./Button.scss"
 
 export default (props) =>{
-    const {children, link, width, className, onClick, type} = props
+    const {children, width, className, onClick, type} = props
     return(
             <motion.button 
             className={`button cp bn posab ${className}`}
